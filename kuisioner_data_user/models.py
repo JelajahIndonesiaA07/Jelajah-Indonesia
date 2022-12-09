@@ -13,6 +13,7 @@ class kuisioner(models.Model):
     tujuan = models.TextField()
     prov = models.TextField()
     kontak = models.IntegerField()
+    forum = models.TextField()
 
     def __str__(self):
         return str(self.nama)
