@@ -10,6 +10,12 @@ from django.views.decorators.csrf import requires_csrf_token
 from tempat_wisata.forms import WisataForm
 from django.views.decorators.csrf import csrf_protect
 
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login
+from django.core.exceptions import ObjectDoesNotExist
+import json
+
 @login_required(login_url='/tempat_wisata/login/')
 def show_tempat_wisata(request):
     user = request.user
@@ -69,3 +75,76 @@ def flutter_delete_tempat_wisata(request, id):
     task = tempat_wisata_Item.objects.get(id=id)
     task.delete()
     return JsonResponse({"message": "Successfully Delete Tempat Wisata!.", "status": 200}, status=200)
+
+#flutter
+@csrf_exempt
+def add_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        nama = data['nama_tempat_wisata']
+        provinsi = data['provinsi_tempat_wisata']
+        deskripsi = data['deskripsi_tempat_wisata']
+        user_id = data['user_id']
+        user =  User.objects.get(id = user_id)
+        # return JsonResponse({"hasil": "test"}, status=200)
+        if user is not None:
+            if user.is_active:
+                new_id = User.objects.get(id = user_id).pk
+                try: 
+                    wisatas = tempat_wisata_Item.objects.all()
+                    if wisatas is not None:
+                        last_wisata_id = tempat_wisata_Item.objects.latest("id").pk
+                        for wisata in wisatas:
+                            if(((wisata.nama_tempat_wisata).lower() == nama.lower()) and (wisata.user == user) ):
+                                return JsonResponse({"hasil": "nama wisata sudah ada"}, status=400)
+                
+                        wisata_baru = tempat_wisata_Item(last_wisata_id+1,new_id, nama, provinsi, deskripsi)
+                except ObjectDoesNotExist:
+                    last_wisata_id = 1
+                    wisata_baru = tempat_wisata_Item(last_wisata_id,new_id, nama, provinsi, deskripsi)
+                    # return  JsonResponse({"hasil": "berhasil menambah data wisata baru"}, status=400)    
+               
+                wisata_baru.save()
+                return JsonResponse({"hasil": "nama wisata berhasil dibuat"}, status=200)
+                
+                # return JsonResponse({"hasil": "bisa", "user": new_id, "dump": "OK"}, status=200)
+
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Failed to Login, Account Disabled."
+            }, status=401)
+
+@csrf_exempt
+def delete_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        wisata_id = data['wisata_id']
+        try:
+            task = tempat_wisata_Item.objects.get(id=wisata_id)
+            if task is not None:
+                task.delete()
+                return JsonResponse({"hasil": "berhasil"}, status=200)
+            else:
+                return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+        except ObjectDoesNotExist:
+            return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+
+@csrf_exempt
+def get_tempat_wisata_by_user_id(request):
+    if request.method == 'POST':
+            data = json.loads(request.body)
+            # wisata_id = data['wisata_id']
+            user_id = data['user_id']
+            try:
+                user =  User.objects.get(id = user_id)
+                task = tempat_wisata_Item.objects.filter(user=user)
+                if task is not None:
+                    return HttpResponse(serializers.serialize("json", task),content_type="application/json")
+                else:
+                    return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+            except User.DoesNotExist:
+                return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+                # pass
