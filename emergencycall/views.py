@@ -22,7 +22,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import requires_csrf_token
 
-
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+import json
 
 
 # Create your views here.
@@ -66,3 +68,31 @@ def show_hospital_json(request):
     data = EmergencyCallItem.objects.all()
     return HttpResponse(serializers.serialize("json", data),
                         content_type="application/json")
+
+@csrf_exempt
+def add_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        hospital_name = data['hospital_name']
+        hospital_number = data['hospital_number']
+        hospital_location = data['hospital_location']
+        user_id = data['user_id']
+        user =  User.objects.get(id = user_id)
+        # return JsonResponse({"hasil": "test"}, status=200)
+        if user is not None:
+            if user.is_active:
+                new_id = User.objects.get(id = user_id).pk
+                last_hospital_id = EmergencyCallItem.objects.latest("id").pk
+                # Redirect to a success page.
+                
+                hospital_baru = EmergencyCallItem(last_hospital_id+1,new_id, hospital_name, hospital_number, hospital_location)
+                
+                hospital_baru.save()
+                
+                return JsonResponse({"hasil": "bisa", "user": new_id, "dump": "OK"}, status=200)
+
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Failed to Login, Account Disabled."
+            }, status=401)
