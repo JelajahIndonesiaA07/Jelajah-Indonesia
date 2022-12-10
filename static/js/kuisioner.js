@@ -30,7 +30,6 @@ $(document).ready( () =>{
     let tujuan = "-";
     let provinsi = "-";
     let kontak = "-";
-    let forum = "-";
     
     $("#next-q").click(function(){
         console.log(pertanyaanCounter);
@@ -49,7 +48,7 @@ $(document).ready( () =>{
         }
         
         pertanyaanCounter++;
-        if(pertanyaanCounter === 8){
+        if(pertanyaanCounter === 9){
             cekSemua();
             return
         }
@@ -121,8 +120,6 @@ $(document).ready( () =>{
         console.log(provinsi);
         kontak = $('#kontak').val();
         console.log(kontak);
-        forum = $('#forum').val();
-        console.log(forum);
 
         document.cookie = `nama=${nama}`
         document.cookie = `umur=${umur}`
@@ -132,13 +129,12 @@ $(document).ready( () =>{
         document.cookie = `tujuan=${tujuan}`
         document.cookie = `prov=${provinsi}`
         document.cookie = `kontak=${kontak}`
-        document.cookie = `forum=${forum}`
 
-        kirim(nama, umur, gender, vaksin, negara, tujuan, provinsi, kontak, forum);
+        kirim(nama, umur, gender, vaksin, negara, tujuan, provinsi, kontak);
         window.location.replace("./hasil");
     }
 
-    function kirim(nama, umur, gender, vaksin, negara, tujuan, prov, kontak, forum){
+    function kirim(nama, umur, gender, vaksin, negara, tujuan, prov, kontak){
         console.log($('form'));
         const csrf = document.getElementsByName("csrfmiddlewaretoken");
         const fd = new FormData();
@@ -151,7 +147,6 @@ $(document).ready( () =>{
         fd.append('tujuan', tujuan);
         fd.append('prov', prov);
         fd.append('kontak', kontak);
-        fd.append('forum', forum);
 
         console.log(fd)
 
