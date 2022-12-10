@@ -13,6 +13,7 @@ $(document).ready( () =>{
     const tujuan = getCookieValue('tujuan');
     const prov = getCookieValue('prov');
     const kontak = getCookieValue('kontak');
+    const forum = getCookieValue('forum');
 
 
     console.log(nama)
@@ -23,6 +24,7 @@ $(document).ready( () =>{
     console.log(tujuan)
     console.log(prov)
     console.log(kontak)
+    console.log(forum)
     
     $("#nama").text(`: ${nama}`);
     $("#umur").text(`: ${umur}`);
@@ -40,6 +42,7 @@ $(document).ready( () =>{
     $("#tujuan").text(`: ${tujuan}`);
     $("#prov").text(`: ${prov}`);
     $("#kontak").text(`: ${kontak}`);
+    $("#forum").text(`: ${forum}`);
     $('button').text("Dapatkan info lokasi tempat wisata");
     
     $("#con-hasil").slideDown(1000, () =>{
