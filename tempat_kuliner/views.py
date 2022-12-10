@@ -10,6 +10,7 @@ from tempat_kuliner.forms import KulinerForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/tempat_kuliner/login/')
 def show_tempat_kuliner(request):
