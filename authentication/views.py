@@ -11,8 +11,6 @@ def register(request):
         username = request.POST.get('username')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        register_as = request.POST.get('register_as')
-
         if password1 != password2:
             return JsonResponse({'status': False, 'message': 'Password tidak sesuai'}, status=400)
         user = User.objects.create_user(username=username, password=password1)
