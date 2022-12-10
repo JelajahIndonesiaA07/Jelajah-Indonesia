@@ -34,10 +34,12 @@ def login(request):
     if user is not None:
         if user.is_active:
             auth_login(request, user)
+            uid = User.objects.get(username = username).pk
             # Redirect to a success page.
             return JsonResponse({
                 "status": True,
                 "message": "Successfully Logged In!",
+                "data": uid
             }, status=200)
 
         else:
