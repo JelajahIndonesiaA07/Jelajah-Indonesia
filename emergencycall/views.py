@@ -21,7 +21,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import requires_csrf_token
-
+from django.http import JsonResponse
 
 
 
@@ -66,3 +66,22 @@ def show_hospital_json(request):
     data = EmergencyCallItem.objects.all()
     return HttpResponse(serializers.serialize("json", data),
                         content_type="application/json")
+
+def show_emergencycall_json(request):
+    data = EmergencyCallItem.objects.all()
+    return HttpResponse(serializers.serialize("json", data),
+                        content_type="application/json")
+
+@csrf_exempt
+def AddEmergencycall_flutter(request):
+    if request.method == 'POST':
+        # newActivity = json.loads(request.body)
+
+        new_Activity = EmergencyCallItem.objects.create(
+            hospital_name = request.POST['hospital_name'],
+            hospital_number = request.POST['hospital_number'],
+            hospital_location = request.POST['hospital_location'],
+        )
+
+        new_Activity.save()
+    return JsonResponse({"instance": "Rumah Sakit berhasil ditambah"}, status=200)
