@@ -49,7 +49,7 @@ $(document).ready( () =>{
         }
         
         pertanyaanCounter++;
-        if(pertanyaanCounter === 8){
+        if(pertanyaanCounter === 9){
             cekSemua();
             return
         }
