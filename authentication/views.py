@@ -4,18 +4,25 @@ from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 @csrf_exempt
 def register(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        if password1 != password2:
-            return JsonResponse({'status': False, 'message': 'Password tidak sesuai'}, status=400)
-        user = User.objects.create_user(username=username, password=password1)
-        
-        return JsonResponse({'status': True}, status=200)
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return JsonResponse(
+        {
+            "status": True,
+            "message": "Registration success!",
+        }, status = 200)
+    else:
+        return JsonResponse(
+        {
+            "status": False,
+            "message": "Registration failed!",
+            "details": form.errors
+        }, status = 400)
 
 
 
