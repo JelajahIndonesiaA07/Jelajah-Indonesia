@@ -91,6 +91,6 @@ def hapus(request, id):
     return  ShowActivityForms(request)
 
 def show_activity_json(request):
-    data = Task.objects.all()
+    data = Task.objects.filter(user= user)
     return HttpResponse(serializers.serialize("json", data),
                         content_type="application/json")
