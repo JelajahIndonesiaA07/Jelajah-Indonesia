@@ -62,6 +62,10 @@ def AddKuliner_flutter(request):
             rating_tempat_kuliner = request.POST['rating_tempat_kuliner'],
             lokasi_tempat_kuliner = request.POST['lokasi_tempat_kuliner'],
         )
+def show_tempat_kuliner_json(request):
+    data = tempat_kuliner_Item.objects.all()
+    return HttpResponse(serializers.serialize("json", data),
+                        content_type="application/json")
 
         new_Activity.save()
     return JsonResponse({"instance": "Tempat Kuliner berhasil ditambah"}, status=200)
