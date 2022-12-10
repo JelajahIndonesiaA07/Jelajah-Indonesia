@@ -16,6 +16,7 @@ $(document).ready( () =>{
         "Apakah tujuan anda berkunjung ke Indonesia?", 
         "Apakah provinsi tujuan anda?",
         "Nomor telepon yang dapat dihubungi",
+        "Kesan/Pesan selama di Indonesia",
     ];
     
     // let radio = [3, 4, 6];
@@ -29,6 +30,7 @@ $(document).ready( () =>{
     let tujuan = "-";
     let provinsi = "-";
     let kontak = "-";
+    let forum = "-";
     
     $("#next-q").click(function(){
         console.log(pertanyaanCounter);
@@ -47,7 +49,7 @@ $(document).ready( () =>{
         }
         
         pertanyaanCounter++;
-        if(pertanyaanCounter === 8){
+        if(pertanyaanCounter === 9){
             cekSemua();
             return
         }
@@ -117,9 +119,10 @@ $(document).ready( () =>{
         console.log(tujuan);
         provinsi = $('select[name=provinsi-selector] option').filter(':selected').val();
         console.log(provinsi);
-
         kontak = $('#kontak').val();
         console.log(kontak);
+        forum = $('#forum').val();
+        console.log(forum);
 
         document.cookie = `nama=${nama}`
         document.cookie = `umur=${umur}`
@@ -129,12 +132,13 @@ $(document).ready( () =>{
         document.cookie = `tujuan=${tujuan}`
         document.cookie = `prov=${provinsi}`
         document.cookie = `kontak=${kontak}`
+        document.cookie = `forum=${forum}`
 
-        kirim(nama, umur, gender, vaksin, negara, tujuan, provinsi, kontak);
+        kirim(nama, umur, gender, vaksin, negara, tujuan, provinsi, kontak, forum);
         window.location.replace("./hasil");
     }
 
-    function kirim(nama, umur, gender, vaksin, negara, tujuan, prov, kontak){
+    function kirim(nama, umur, gender, vaksin, negara, tujuan, prov, kontak, forum){
         console.log($('form'));
         const csrf = document.getElementsByName("csrfmiddlewaretoken");
         const fd = new FormData();
@@ -147,6 +151,7 @@ $(document).ready( () =>{
         fd.append('tujuan', tujuan);
         fd.append('prov', prov);
         fd.append('kontak', kontak);
+        fd.append('forum', forum);
 
         console.log(fd)
 

@@ -7,12 +7,13 @@ from django.db import models
 class kuisioner(models.Model):
     nama = models.TextField()
     umur = models.IntegerField()
-    gender = models.CharField(max_length=10)
-    vaksin = models.CharField(max_length=10)
-    negara = models.CharField(max_length=255)
-    tujuan = models.CharField(max_length=255)
-    prov = models.CharField(max_length=255)
+    gender = models.TextField()
+    vaksin = models.TextField()
+    negara = models.TextField()
+    tujuan = models.TextField()
+    prov = models.TextField()
     kontak = models.IntegerField()
+    forum = models.TextField()
 
     def __str__(self):
         return str(self.nama)

@@ -25,6 +25,7 @@ from django.http import JsonResponse
 
 
 
+
 # Create your views here.
 @login_required(login_url='/emergencycall/login/')
 def show_hospital(request):
@@ -85,3 +86,4 @@ def AddEmergencycall_flutter(request):
 
         new_Activity.save()
     return JsonResponse({"instance": "Rumah Sakit berhasil ditambah"}, status=200)
+

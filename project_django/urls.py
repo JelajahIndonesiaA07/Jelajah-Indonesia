@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('mainpage/', include('mainpage.urls')),
     path("emergencycall/", include("emergencycall.urls")),
     path('kuisioner/', include('kuisioner_data_user.urls')),
+    path('auth/', include('authentication.urls')),
 
 ]

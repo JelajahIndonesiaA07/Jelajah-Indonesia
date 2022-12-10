@@ -7,8 +7,10 @@ from django.contrib.auth.decorators import login_required
 from tempat_kuliner.models import tempat_kuliner_Item
 from django.views.decorators.csrf import requires_csrf_token
 from tempat_kuliner.forms import KulinerForm
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+
 
 @login_required(login_url='/tempat_kuliner/login/')
 def show_tempat_kuliner(request):
@@ -53,6 +55,7 @@ def show_tempat_kuliner_json(request):
                         content_type="application/json")
 
 @csrf_exempt
+
 def AddKuliner_flutter(request):
     if request.method == 'POST':
         # newActivity = json.loads(request.body)
@@ -64,3 +67,4 @@ def AddKuliner_flutter(request):
         )
         new_Activity.save()
     return JsonResponse({"instance": "Tempat Kuliner berhasil ditambah"}, status=200)
+

@@ -1,0 +1,92 @@
+[
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":1,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Jakarta",
+            "nama_tempat_wisata":"Monumen Nasional",
+            "deskripsi_tempat_wisata":"Monumen Nasional atau yang disingkat dengan Monas atau Tugu Monas adalah monumen peringatan setinggi 132 meter yang terletak tepat di tengah Lapangan Medan Merdeka, Jakarta Pusat. Monas didirikan untuk mengenang perlawanan dan perjuangan rakyat Indonesia dalam merebut kemerdekaan dari pemerintahan kolonial Kekaisaran Belanda."
+        }
+},
+{
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":2,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Jakarta",
+            "nama_tempat_wisata":"Taman Mini Indonesia Indah",
+            "deskripsi_tempat_wisata":"Taman Mini Indonesia Indah merupakan suatu taman hiburan bertema budaya Indonesia di Jakarta Timur. Taman ini merupakan rangkuman kebudayaan bangsa Indonesia, yang mencakup berbagai aspek kehidupan sehari-hari masyarakat 26 provinsi Indonesia yang ditampilkan dalam anjungan daerah berarsitektur tradisional, serta menampilkan aneka busana, tarian, dan tradisi daerah."
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":3,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Jakarta",
+            "nama_tempat_wisata":"Museum Fatahillah",
+            "deskripsi_tempat_wisata":"Museum Fatahillah memiliki nama resmi Museum Sejarah Jakarta adalah sebuah museum yang terletak di Jalan Taman Fatahillah Nomor 1, Jakarta Barat, dengan luas lebih dari 1.300 meter persegi. Bangunan ini dahulu merupakan Balai Kota Batavia yang dibangun pada tahun 1707-1710 atas perintah Gubernur Jenderal Joan van Hoorn."
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":4,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Bali",
+            "nama_tempat_wisata":"Pantai Sanur",
+            "deskripsi_tempat_wisata":"Pantai Sanur adalah salah satu pantai wisata yang ada di pulau Bali. Pantai ini terletak persis di sebelah timur kota Denpasar, Bali. Sanur berada di Kotamadya Denpasar. Karena memiliki ombak yang cukup tenang, maka pantai Sanur tidak bisa dipakai untuk selancar layaknya Pantai Kuta."
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":5,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Bali",
+            "nama_tempat_wisata":"Tanah Lot",
+            "deskripsi_tempat_wisata":"Pura Tanah Lot adalah salah satu Pura yang sangat disucikan di Bali, Indonesia. Di sini ada dua pura yang terletak di atas batu besar. Satu terletak di atas bongkahan batu dan satunya terletak di atas tebing mirip dengan Pura Uluwatu. "
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":6,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Bali",
+            "nama_tempat_wisata":"Pura Luhuru Uluwatu",
+            "deskripsi_tempat_wisata":"Pura Luhur Uluwatu atau Pura Uluwatu merupakan pura yang berada di wilayah Desa Adat Pecatu, Kecamatan Kuta Selatan, Kabupaten Badung. Pura yang terletak di ujung barat daya pulau Bali di atas anjungan batu karang yang terjal dan tinggi serta menjorok ke laut ini merupakan Pura Sad Kayangan yang dipercaya oleh orang Hindu sebagai penyangga dari 9 mata angin."
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":7,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Jogjakarta",
+            "nama_tempat_wisata":"Kampung Wisata Taman Sari",
+            "deskripsi_tempat_wisata":"Taman Sari Yogyakarta atau Taman Sari Keraton Yogyakarta adalah situs bekas taman atau kebun istana Keraton Ngayogyakarta Hadiningrat. Konon, Taman Sari dibangun di bekas keraton lama, Pesanggrahan Garjitawati, yang didirikan oleh Susuhunan Paku Buwono II sebagai tempat istirahat kereta kuda yang akan pergi ke Imogiri. "
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":8,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Jogjakarta",
+            "nama_tempat_wisata":"Tugu Jogja",
+            "deskripsi_tempat_wisata":"Tugu Yogyakarta adalah sebuah tugu atau monumen yang sering dipakai sebagai simbol atau lambang dari Kota Yogyakarta. Tugu ini mempunyai nilai simbolis yang merupakan garis yang bersifat magis yang menghubungkan Pantai Parangtritis dan Panggung Krapyak di Kabupaten Bantul, Keraton Yogyakarta di Kota Yogyakarta dan Gunung Merapi di Kabupaten Sleman."
+        }
+    },
+    {
+        "model":"tempat_wisata.tempat_wisata_Item",
+        "pk":9,
+        "fields":{
+            "user" : "{{ request.user }}",
+            "provinsi_tempat_wisata":"Jogjakarta",
+            "nama_tempat_wisata":"Jalan Malioboro",
+            "deskripsi_tempat_wisata":"Jalan Malioboro adalah nama salah satu kawasan jalan dari tiga jalan di Kota Yogyakarta yang membentang dari Tugu Yogyakarta hingga ke perempatan Kantor Pos Yogyakarta. Jalan ini merupakan poros Garis Imajiner Kraton Yogyakarta. Jalan ini menghubungkan Tugu Yogyakarta hingga menjelang kompleks Keraton Yogyakarta."
+        }
+    }
+]
