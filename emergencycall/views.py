@@ -21,10 +21,9 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import requires_csrf_token
-
-from django.contrib.auth.models import User
 from django.http import JsonResponse
-import json
+
+
 
 
 # Create your views here.
@@ -69,30 +68,22 @@ def show_hospital_json(request):
     return HttpResponse(serializers.serialize("json", data),
                         content_type="application/json")
 
-@csrf_exempt
-def add_data(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        hospital_name = data['hospital_name']
-        hospital_number = data['hospital_number']
-        hospital_location = data['hospital_location']
-        user_id = data['user_id']
-        user =  User.objects.get(id = user_id)
-        # return JsonResponse({"hasil": "test"}, status=200)
-        if user is not None:
-            if user.is_active:
-                new_id = User.objects.get(id = user_id).pk
-                last_hospital_id = EmergencyCallItem.objects.latest("id").pk
-                # Redirect to a success page.
-                
-                hospital_baru = EmergencyCallItem(last_hospital_id+1,new_id, hospital_name, hospital_number, hospital_location)
-                
-                hospital_baru.save()
-                
-                return JsonResponse({"hasil": "bisa", "user": new_id, "dump": "OK"}, status=200)
+def show_emergencycall_json(request):
+    data = EmergencyCallItem.objects.all()
+    return HttpResponse(serializers.serialize("json", data),
+                        content_type="application/json")
 
-        else:
-            return JsonResponse({
-                "status": False,
-                "message": "Failed to Login, Account Disabled."
-            }, status=401)
+@csrf_exempt
+def AddEmergencycall_flutter(request):
+    if request.method == 'POST':
+        # newActivity = json.loads(request.body)
+
+        new_Activity = EmergencyCallItem.objects.create(
+            hospital_name = request.POST['hospital_name'],
+            hospital_number = request.POST['hospital_number'],
+            hospital_location = request.POST['hospital_location'],
+        )
+
+        new_Activity.save()
+    return JsonResponse({"instance": "Rumah Sakit berhasil ditambah"}, status=200)
+
