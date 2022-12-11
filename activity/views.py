@@ -105,7 +105,7 @@ def delete_data(request):
         data = json.loads(request.body)
         activity_id = data['activity_id']
         try:
-            task = Task.get(id=wisata_id)
+            task = Task.get(id=activity_id)
             if task is not None:
                 task.delete()
                 return JsonResponse({"hasil": "berhasil"}, status=200)
