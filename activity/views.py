@@ -10,6 +10,10 @@ from activity.models import Task
 from .forms import CreateForm
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+import json
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login
 
 # Create your views here.
 @csrf_exempt
@@ -94,3 +98,18 @@ def show_activity_json(request):
     data = Task.objects.all()
     return HttpResponse(serializers.serialize("json", data),
                         content_type="application/json")
+
+@csrf_exempt
+def delete_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        activity_id = data['activity_id']
+        try:
+            task = Task.get(id=wisata_id)
+            if task is not None:
+                task.delete()
+                return JsonResponse({"hasil": "berhasil"}, status=200)
+            else:
+                return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+        except ObjectDoesNotExist:
+            return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)

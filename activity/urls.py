@@ -11,6 +11,7 @@ from activity.views import show_json
 from activity.views import hapus
 from activity.views import show_activity_json
 from activity.views import AddActivity_flutter
+from activity.views import delete_data
 
 app_name = 'activity'
 
@@ -27,4 +28,5 @@ urlpatterns = [
     path("hapus/<int:id>", hapus, name="hapus"),
     path('get-activity-flutter/', show_activity_json, name="show_activity_json"),
     path("add-activity-flutter/", AddActivity_flutter, name="AddActivity_flutter"),
+    path("delete-activity-flutter/", delete_data, name="delete_data"),
 ]
