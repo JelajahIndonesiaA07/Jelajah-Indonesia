@@ -105,7 +105,7 @@ def delete_data(request):
         data = json.loads(request.body)
         activity_id = data['activity_id']
         try:
-            task = Task.get(id=activity_id)
+            task = Task.object.get(id=activity_id)
             if task is not None:
                 task.delete()
                 return JsonResponse({"hasil": "berhasil"}, status=200)
@@ -113,3 +113,58 @@ def delete_data(request):
                 return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
         except ObjectDoesNotExist:
             return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+@csrf_exempt
+def add_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        title = data['title']
+        description = data['description']
+        user_id = data['user_id']
+        user =  User.objects.get(id = user_id)
+        # return JsonResponse({"hasil": "test"}, status=200)
+        if user is not None:
+            if user.is_active:
+                new_id = User.objects.get(id = user_id).pk
+                try: 
+                    activities = Task.objects.all()
+                    if activities is not None:
+                        last_activity_id = Task.objects.latest("id").pk
+                        for activity in activities:
+                            if(((activity.title).lower() == title.lower()) and (activity.user == user) ):
+                                return JsonResponse({"hasil": "nama activity sudah ada"}, status=400)
+                
+                        activity_baru = Task(last_activity_id+1,new_id, title, description)
+                except ObjectDoesNotExist:
+                    last_activity_id = 1
+                    activity_baru = Task(last_activity_id,new_id, title, description)
+                    # return  JsonResponse({"hasil": "berhasil menambah data wisata baru"}, status=400)    
+               
+                activity_baru.save()
+                return JsonResponse({"hasil": "nama activity berhasil dibuat"}, status=200)
+                
+                # return JsonResponse({"hasil": "bisa", "user": new_id, "dump": "OK"}, status=200)
+
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Failed to Login, Account Disabled."
+            }, status=401)
+
+@csrf_exempt
+def get_activity_id(request):
+    if request.method == 'POST':
+            data = json.loads(request.body)
+            # wisata_id = data['wisata_id']
+            user_id = data['user_id']
+            try:
+                user =  User.objects.get(id = user_id)
+                task = Task.objects.filter(user=user)
+                if task is not None:
+                    return HttpResponse(serializers.serialize("json", task),content_type="application/json")
+                else:
+                    return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+            except User.DoesNotExist:
+                return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+                # pass

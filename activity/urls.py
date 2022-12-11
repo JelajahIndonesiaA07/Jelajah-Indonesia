@@ -12,6 +12,8 @@ from activity.views import hapus
 from activity.views import show_activity_json
 from activity.views import AddActivity_flutter
 from activity.views import delete_data
+from activity.views import add_data
+from activity.views import get_activity_id
 
 app_name = 'activity'
 
@@ -27,6 +29,8 @@ urlpatterns = [
     path("json/", show_json, name="show_json"),
     path("hapus/<int:id>", hapus, name="hapus"),
     path('get-activity-flutter/', show_activity_json, name="show_activity_json"),
+    path('ambil-activity-flutter/', get_activity_id, name="get_activity_id"),
     path("add-activity-flutter/", AddActivity_flutter, name="AddActivity_flutter"),
+    path("tambah-activity-flutter/", add_data, name="add_data"),
     path("delete-activity-flutter/", delete_data, name="delete_data"),
 ]
