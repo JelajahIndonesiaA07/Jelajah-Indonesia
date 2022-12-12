@@ -99,13 +99,29 @@ def show_activity_json(request):
     return HttpResponse(serializers.serialize("json", data),
                         content_type="application/json")
 
+# @csrf_exempt
+# def delete_data(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         activity_id = data['activity_id']
+#         try:
+#             task = Task.object.get(id=activity_id)
+#             if task is not None:
+#                 task.delete()
+#                 return JsonResponse({"hasil": "berhasil"}, status=200)
+#             else:
+#                 return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+#         except ObjectDoesNotExist:
+#             return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+
 @csrf_exempt
 def delete_data(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         activity_id = data['activity_id']
         try:
-            task = Task.object.get(id=activity_id)
+            task = Task.objects.get(id=activity_id)
             if task is not None:
                 task.delete()
                 return JsonResponse({"hasil": "berhasil"}, status=200)
@@ -113,6 +129,7 @@ def delete_data(request):
                 return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
         except ObjectDoesNotExist:
             return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
 
 @csrf_exempt
 def add_data(request):

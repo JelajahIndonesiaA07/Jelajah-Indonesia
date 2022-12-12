@@ -28,6 +28,9 @@ urlpatterns = [
     path("submit/", AddActivity, name="AddActivity"),
     path("json/", show_json, name="show_json"),
     path("hapus/<int:id>", hapus, name="hapus"),
+    path('delete-data/', delete_data, name="delete_data"),
+
+    
     path('get-activity-flutter/', show_activity_json, name="show_activity_json"),
     path('ambil-activity-flutter/', get_activity_id, name="get_activity_id"),
     path("add-activity-flutter/", AddActivity_flutter, name="AddActivity_flutter"),

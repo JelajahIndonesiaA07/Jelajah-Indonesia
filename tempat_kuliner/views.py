@@ -10,6 +10,9 @@ from tempat_kuliner.forms import KulinerForm
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+import json
 
 
 @login_required(login_url='/tempat_kuliner/login/')
@@ -68,3 +71,74 @@ def AddKuliner_flutter(request):
         new_Activity.save()
     return JsonResponse({"instance": "Tempat Kuliner berhasil ditambah"}, status=200)
 
+@csrf_exempt
+def add_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        nama_tempat_kuliner = data['nama_tempat_kuliner']
+        rating_tempat_kuliner = data['rating_tempat_kuliner']
+        lokasi_tempat_kuliner = data['lokasi_tempat_kuliner']
+        user_id = data['user_id']
+        user =  User.objects.get(id = user_id)
+        # return JsonResponse({"hasil": "test"}, status=200)
+        if user is not None:
+            if user.is_active:
+                new_id = User.objects.get(id = user_id).pk
+                try: 
+                    kuliners = tempat_kuliner_Item.objects.all()
+                    if kuliners is not None:
+                        last_kuliner_id = tempat_kuliner_Item.objects.latest("id").pk
+                        for kuliner in kuliners:
+                            if(((kuliner.nama_tempat_kuliner).lower() == nama_tempat_kuliner.lower()) and (kuliner.user == user) ):
+                                return JsonResponse({"hasil": "nama tempat kuliner sudah ada"}, status=400)
+                
+                        kuliner_baru = tempat_kuliner_Item(last_kuliner_id+1,new_id, nama_tempat_kuliner, rating_tempat_kuliner, lokasi_tempat_kuliner)
+                except ObjectDoesNotExist:
+                    last_kuliner_id = 1
+                    kuliner_baru = tempat_kuliner_Item(last_kuliner_id,new_id, nama_tempat_kuliner, rating_tempat_kuliner, lokasi_tempat_kuliner)
+                    # return  JsonResponse({"hasil": "berhasil menambah data kuliner baru"}, status=400)    
+               
+                kuliner_baru.save()
+                return JsonResponse({"hasil": "nama tempat kuliner berhasil dibuat"}, status=200)
+                
+                # return JsonResponse({"hasil": "bisa", "user": new_id, "dump": "OK"}, status=200)
+
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Failed to Login, Account Disabled."
+            }, status=401)
+
+@csrf_exempt
+def delete_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        kuliner_id = data['kuliner_id']
+        try:
+            task = tempat_kuliner_Item.objects.get(id=kuliner_id)
+            if task is not None:
+                task.delete()
+                return JsonResponse({"hasil": "berhasil"}, status=200)
+            else:
+                return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+        except ObjectDoesNotExist:
+            return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+
+@csrf_exempt
+def get_tempat_kuliner_by_user_id(request):
+    if request.method == 'POST':
+            data = json.loads(request.body)
+            # kuliner_id = data['kuliner_id']
+            user_id = data['user_id']
+            try:
+                user =  User.objects.get(id = user_id)
+                task = tempat_kuliner_Item.objects.filter(user=user)
+                if task is not None:
+                    return HttpResponse(serializers.serialize("json", task),content_type="application/json")
+                else:
+                    return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+
+            except User.DoesNotExist:
+                return JsonResponse({"hasil": "gagal, data tidak ditemukan"}, status=404)
+                # pass
