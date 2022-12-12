@@ -14,5 +14,9 @@ class kuisioner(models.Model):
     prov = models.TextField()
     kontak = models.IntegerField()
 
+class Country(models.Model):
+    name = models.CharField(max_length=255, default=None)
+    code = models.CharField(max_length=255, default=None)
+
     def __str__(self):
         return str(self.nama)
