@@ -2,6 +2,7 @@
 <h3 align="center">Tugas Kelompok PBP A07 </h3>
 <div align="center">
 
+
   <a href="">[![Status deployment](https://github.com/JelajahIndonesiaA07/Jelajah-Indonesia/workflows/Deploy/badge.svg)](https://github.com/JelajahIndonesiaA07/Jelajah-Indonesia/actions/workflows/dpl.yml)</a>
   <a href="">[![Heroku App Status](https://heroku-shields.herokuapp.com/jelajahindonesia)](https://jelajahindonesia.herokuapp.com)</a>
   <p>Pada project PBP ini, kelompok kami membuat sebuah website bernama Jelajah Indonesia yang berisi segala informasi dan hal yang dapat dilakukan oleh pandatang dari berbagai negara yang akan menjadi partisipan G20 untuk mengisi waktu selama rangkaian acara G20 berlangsung.</p>
